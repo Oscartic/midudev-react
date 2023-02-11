@@ -1,0 +1,73 @@
+.orb-followCard {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: .8rem;
+    justify-content: space-between;
+}
+
+.orb-followCard-header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.orb-followCard-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.orb-followCard-infoUserName {
+    opacity: .6;
+}
+
+.orb-followCard-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 1000px;
+}
+
+.orb-followCard-button {
+    cursor: pointer;
+    margin-left: 16px;
+    border: 0;
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-weight: bold;
+    border: 1px solid black;
+    transition: .3s ease background-color;
+}
+
+.orb-followCard-button:hover {
+    opacity: .8;
+}
+
+.orb-followCard-button.is-following {
+    border: 1px solid #bbb;
+    background-color: transparent;
+    color: #fff;
+    width: 140px;
+}
+
+.orb-followCard-button.is-following:hover {
+    background-color: rgba(255, 0, 0, 0.178);
+    color: red;
+    border: 1px solid red;
+    transition: .3s ease all;
+}
+
+.orb-followed-text {
+    display: block;
+}
+
+.orb-followCard-button.is-following:hover .orb-followed-text  {
+    display: none;
+}
+
+.orb-followCard-button.is-following:hover .orb-followed-stopFollow {
+    display: block;
+}
+
+.orb-followed-stopFollow {
+    display: none;
+}
