@@ -19,4 +19,3 @@ export const checkEndGame = (newBoard) => {
     // check if there tie (if not null field in board)
     return newBoard.every(square => square != null);
 }
-  
