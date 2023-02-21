@@ -1,43 +1,33 @@
 import { useEffect, useState } from 'react';
+import { getRandomFact } from './services/facts';
+import { useCatImage } from './hooks/useCatImage'
 import './App.css'
 
 
 const CAT_ENDPOINT_RANDOM_FACT = 'https://catfact.ninja/fact';
-// const CAT_ENDPOINT_IMAGE_URL = `https://cataas.com/cat/says/${threeFirstWord}?size=50&color=red&json=true`; 
 const CAT_PREFIX_IMAGE_URL = 'https://cataas.com';
+
+
 
 export function App () {
   const [fact, setFact] = useState('Lorem ipsum cat');
-  const [imageUrl, setImageUrl] = useState();
-  
+  const { imageUrl } = useCatImage({ fact });
+
   // fetch the cat quote when reload page
   useEffect(() => {
-    fetch(CAT_ENDPOINT_RANDOM_FACT)
-      .then(res => res.json())
-      .then(data => {
-        const { fact } = data;
-        setFact(fact);
-      }) 
+    getRandomFact().then(newFact => setFact(newFact));
   }, [])
 
-  // recover image when we have quote
-  useEffect(() => {
-    if(!fact) return;
-    const threeFirstWord = fact.split(' ', 3).join(' ');
-    console.log(threeFirstWord);
-
-    fetch(`https://cataas.com/cat/says/${threeFirstWord}?size=50&color=red&json=true`)
-      .then(res => res.json())
-      .then(response => {
-        console.log(response)
-        const { url } = response;
-        setImageUrl(url);
-      })
-  }, [fact])
+  const handleClick = async () => {
+    const newFact = await getRandomFact();
+    setFact(newFact);
+  };
 
   return (
     <main>
       <h1>App de gaticos</h1> 
+
+      <button onClick={handleClick}>Get new fact</button>
       <p>{fact}</p>
       {imageUrl && <img src={`${CAT_PREFIX_IMAGE_URL}${imageUrl}`} alt={fact} />}
     </main>
