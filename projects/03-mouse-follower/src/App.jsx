@@ -4,7 +4,7 @@ const FollowMouse = () => {
   const [enabled, setEnabled] = useState(false)
   const [position, setPosition] = useState({ x: 0, y: 0 })
 
-    // [] -> solo se ejecuta una vez cuando se monta el componente
+  // [] -> solo se ejecuta una vez cuando se monta el componente
   // [enabled] -> se ejecuta cuando cambia enabled y cuando se monta el componente
   // undefined -> se ejecuta cada vez que se renderiza el componente
 
