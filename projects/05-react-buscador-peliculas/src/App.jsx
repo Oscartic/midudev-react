@@ -3,21 +3,24 @@ import './App.css'
 import { useMovies } from './hooks/useMovies'
 import { useSearch } from './hooks/useSearch'
 import { Movies } from './components/Movies'
+import { useState } from 'react'
 
 function App() {
+  const [sort, setSort] = useState()
   const { search, updateSearch } = useSearch()
-  const { movies, error, loading, getMovies } = useMovies({ search })
+  const { movies, error, loading, getMovies } = useMovies({ search, sort })
   // ? const inputRef = useRef() // * this value persist in the renders
 
   const handleChange = (event) => {
     const newQuery = event.target.value
     if (newQuery.startsWith(' ')) return
     updateSearch(newQuery)
+    getMovies({ search: newQuery })
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    getMovies(search)
+    getMovies({ search })
     // const value = inputRef.current.value
     // console.log(value)
     // ? get input values from form
@@ -29,6 +32,10 @@ function App() {
     // * console.log(fields)
   }
 
+  const handleSort = () => {
+    setSort(!sort)
+  }
+
   return (
     <div className='page'>
       <header>
@@ -36,6 +43,7 @@ function App() {
         <form className='form' onSubmit={handleSubmit}>
           {/* <input name='query' ref={inputRef} placeholder='Avangers, Star Wars, The Matrix...' type='text' /> */}
           <input onChange={handleChange} value={search} placeholder='Avangers, Star Wars, The Matrix...' type='text' />
+          <input type='checkbox' onChange={handleSort} />
           <button type='submit'>Buscar</button>
         </form>
         {error && <p className='error'>⚠️ {error}</p>}
