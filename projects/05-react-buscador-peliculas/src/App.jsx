@@ -3,19 +3,26 @@ import './App.css'
 import { useMovies } from './hooks/useMovies'
 import { useSearch } from './hooks/useSearch'
 import { Movies } from './components/Movies'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
+import debounce from 'just-debounce-it'
 
 function App() {
   const [sort, setSort] = useState()
   const { search, updateSearch } = useSearch()
   const { movies, error, loading, getMovies } = useMovies({ search, sort })
-  // ? const inputRef = useRef() // * this value persist in the renders
+  // const inputRef = useRef() // * this value persist in the renders
+
+  // ~ debounce
+  const debouncedGetMovies = useCallback(debounce(search => {
+    console.log('search => ', search)
+    getMovies({ search })
+  }, 500), [])
 
   const handleChange = (event) => {
     const newQuery = event.target.value
     if (newQuery.startsWith(' ')) return
     updateSearch(newQuery)
-    getMovies({ search: newQuery })
+    debouncedGetMovies({ search: newQuery })
   }
 
   const handleSubmit = (event) => {
@@ -23,11 +30,11 @@ function App() {
     getMovies({ search })
     // const value = inputRef.current.value
     // console.log(value)
-    // ? get input values from form
+    // ~ get input values from form
     // * const fields = new window.FormData(event.target)
     // * const query = fields.get('query')
     // * console.log(query)
-    // ? get many inputs values from form
+    // ~ get many inputs values from form
     // * const fields = Object.fromEntries(new window.FormData(event.target))
     // * console.log(fields)
   }
