@@ -43,7 +43,6 @@ export function Filters() {
           <option value='smartphones'>Celulares</option>
         </select>
       </div>
-      <h2>Filters</h2>
     </section>
   )
 }

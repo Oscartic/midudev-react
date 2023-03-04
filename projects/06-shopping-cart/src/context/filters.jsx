@@ -1,6 +1,6 @@
 import { createContext, useState } from 'react'
 
-// this is the context we should consume
+// this is the context we should consume (only create it once - Singleton)
 export const FiltersContext = createContext()
 
 // this is the provider we should wrap our app
